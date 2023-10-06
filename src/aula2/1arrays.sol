@@ -31,15 +31,20 @@ contract ExemplosArrays {
     //linha 1 coluna 0 --- outra disciplina
     //linha 1 coluna 1 -- outro professor
 
-    //exemplo inserir a disciplina geografia na primeira interação ela ficará armazenado na casa 0 e inserindo o professor Joao ele ficará no 1 da segunda array
-    //Assim, se buscarmos no retorno os dois valores zeros ele só retorna a disciplina e se inserirmos o 0 e o 1 ele retorna o professor da disciplina zero
+    //exemplo inserir a disciplina geografia na primeira interação ela ficará armazenado na casa 0 e inserindo o
+    // professor Joao ele ficará no 1 da segunda array
+    //Assim, se buscarmos no retorno os dois valores zeros ele só retorna a disciplina e se inserirmos o 0 e o 1 ele
+    // retorna o professor da disciplina zero
     function definirProfeDiciplina(string memory disciplina, string memory professor) external {
         MatrizesDiscProf.push([disciplina, professor]);
     }
 
     //retornar multidimenções
     //
-    function RetornarProfIndiceDisci(uint256 Indicedisciplina, uint256 IndiceProf)
+    function RetornarProfIndiceDisci(
+        uint256 Indicedisciplina,
+        uint256 IndiceProf
+    )
         external
         view
         returns (string memory)

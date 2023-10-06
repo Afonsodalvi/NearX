@@ -18,13 +18,8 @@ contract DadosemBytes {
     }
     //pq ensinando isso? armazenar ums string em solidity economiza gas e assim temos menos custos
 
-    function converterBytesParaString(bytes memory _meusDadosemBytes)
-        public
-        returns (string memory)
-    {
+    function converterBytesParaString(bytes memory _meusDadosemBytes) public returns (string memory) {
         DadosTrueFalse = false;
         return string(_meusDadosemBytes);
     }
-
-    
 }

@@ -10,33 +10,30 @@ Entendimento de gas e a importancia da eficiencia
 */
 
 contract OpcodeGas {
-    
-    function somaEmsolidity(uint256 a, uint256 b) external pure returns (uint256){
+    function somaEmsolidity(uint256 a, uint256 b) external pure returns (uint256) {
         uint256 soma = a + b;
-        return soma;// 954 gas
+        return soma; // 954 gas
     }
 
     function somaemOpcodeYul(uint256 a, uint256 b) external pure returns (uint256 result) {
         assembly {
             result := add(a, b)
-            } 
+        }
         return result; // 781 gas
     }
-
-
 }
 
-contract gasGolf{
-
-    uint total;
+contract gasGolf {
+    uint256 total;
 
     //jeito sem optmizacao: [10,20,3] 55113 gas
-    function somaSeforPareMenorque50(uint[] memory nums) external{
-         for (uint i = 0; i < nums.length; i += 1) {
+    function somaSeforPareMenorque50(uint256[] memory nums) external {
+        for (uint256 i = 0; i < nums.length; i += 1) {
             //realizamos dois checks aqui
             bool ePar = nums[i] % 2 == 0;
             bool eMenorQue50 = nums[i] < 50;
-            if (ePar && eMenorQue50) { //as duas tem que ser verdadeiro para termos a soma abaixo
+            if (ePar && eMenorQue50) {
+                //as duas tem que ser verdadeiro para termos a soma abaixo
                 total += nums[i];
             }
         }
@@ -45,13 +42,13 @@ contract gasGolf{
     //jeito com optmizacao:
     //calldata reduz significamente
     //[10,20,3] 32884 gas
-    function somaSeforPareMenorque50opmize(uint[] calldata nums) external{
-        uint _total = total;
-        uint len = nums.length; //so de declararmos aqui as variaveis no incio ja gera reducao
+    function somaSeforPareMenorque50opmize(uint256[] calldata nums) external {
+        uint256 _total = total;
+        uint256 len = nums.length; //so de declararmos aqui as variaveis no incio ja gera reducao
 
-         for (uint i = 0; i < len; i += 1) {
-            uint num = nums[i]; //pegamos todos os numeros inseridos
-            if (num % 2 == 0 && num < 50) { 
+        for (uint256 i = 0; i < len; i += 1) {
+            uint256 num = nums[i]; //pegamos todos os numeros inseridos
+            if (num % 2 == 0 && num < 50) {
                 //verifica se o numero e dividivel por dois e se o num e menor que 50
                 //as duas tem que ser verdadeiro para termos a soma abaixo
                 _total += nums[i];

@@ -12,7 +12,7 @@ contract ExemploOperadores {
     }
 
     function calcularMultiplicar(uint256 a, uint256 b) public pure returns (uint256) {
-        uint256 multiplicar = (a + b) * 2 ; //multiplicação da soma por 2
+        uint256 multiplicar = (a + b) * 2; //multiplicação da soma por 2
         return multiplicar;
     }
 

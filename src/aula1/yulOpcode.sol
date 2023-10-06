@@ -10,18 +10,15 @@ Entendimento de gas e a importancia da eficiencia
 */
 
 contract OpcodeGas {
-    
-    function somaEmsolidity(uint256 a, uint256 b) external pure returns (uint256){
+    function somaEmsolidity(uint256 a, uint256 b) external pure returns (uint256) {
         uint256 soma = a + b;
-        return soma;// 954 gas
+        return soma; // 954 gas
     }
 
     function somaemOpcodeYul(uint256 a, uint256 b) external pure returns (uint256 result) {
         assembly {
             result := add(a, b)
-            } 
+        }
         return result; // 781 gas
     }
-
-
 }

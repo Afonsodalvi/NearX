@@ -11,7 +11,7 @@ contract NovaTurmaMapping {
     mapping(string => uint256) public presencaNumero;
 
     //definindo estrutura que o endereço indica uma booliana se esteve presente ou não (true e false)
-    mapping(address => bool) public presenca; 
+    mapping(address => bool) public presenca;
 
     //definindo estrutura que vai indicar outro mapping de um endereço que definem um numero
     mapping(address => mapping(address => uint256)) public NotaProfAluno;

@@ -22,17 +22,15 @@ contract CarFactory {
     }
 
     function createAndSendEther(address _owner, string memory _model) public payable {
-        Car car = (new Car){value: msg.value}(_owner, _model);
+        Car car = (new Car){ value: msg.value }(_owner, _model);
         cars.push(car);
     }
 
-//vamos pegar esses endereços pelos indices da array
-    function getCar(
-        uint _index
-    )
+    //vamos pegar esses endereços pelos indices da array
+    function getCar(uint256 _index)
         public
         view
-        returns (address owner, string memory model, address carAddr, uint balance)
+        returns (address owner, string memory model, address carAddr, uint256 balance)
     {
         Car car = cars[_index];
 

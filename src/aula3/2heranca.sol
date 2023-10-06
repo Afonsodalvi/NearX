@@ -22,14 +22,12 @@ contract Y {
 // Existem 2 maneiras de inicializar o contrato pai com parâmetros.
 
 // Passe os parâmetros aqui na lista de herança. contrato pai herda os filhos
-contract B is X("Input to X"), Y("Input to Y") {
-
-}
+contract B is X("Input to X"), Y("Input to Y") { }
 
 contract C is X, Y {
     //Passe os parâmetros aqui no construtor,
     // semelhante aos modificadores de função.
-    constructor(string memory _name, string memory _text) X(_name) Y(_text) {}
+    constructor(string memory _name, string memory _text) X(_name) Y(_text) { }
 }
 
 // Os construtores pais são sempre chamados na ordem de herança
@@ -41,12 +39,11 @@ contract C is X, Y {
 //2.Y
 //3.D
 contract D is X, Y {
-    constructor() X("X foi chamado") Y("Y foi chamado") {}
+    constructor() X("X foi chamado") Y("Y foi chamado") { }
 }
 
-
-
-// Solidity oferece suporte a herança múltipla. Os contratos podem herdar outro contrato usando a palavra-chave "is" como vemos acima.
+// Solidity oferece suporte a herança múltipla. Os contratos podem herdar outro contrato usando a palavra-chave "is"
+// como vemos acima.
 
 // A função que será substituída por um contrato filho deve ser declarada como virtual.
 
@@ -65,15 +62,15 @@ L  J,Z
 
 */
 
-
-contract A {// usaremos virtual => 
+contract A { // usaremos virtual =>
     function foo() public pure virtual returns (string memory) {
         return "A";
     }
 }
 
-
-contract F is A { //usaremos o ovveride para subistituir o virtual acima
+contract F is
+    A //usaremos o ovveride para subistituir o virtual acima
+{
     // Override A.foo()
     function foo() public pure virtual override returns (string memory) {
         return "F";
@@ -88,7 +85,10 @@ contract O is A {
     }
 }
 
-contract J is F, O { //ordem de esquerda oara a direita ==> retorna o ultimo valor herdado do contrato da sua direita
+contract J is
+    F,
+    O //ordem de esquerda oara a direita ==> retorna o ultimo valor herdado do contrato da sua direita
+{
     // J.foo() returns "0"
     // já que O é o contrato pai mais à direita com a função foo()
     function foo() public pure override(F, O) returns (string memory) {
@@ -107,10 +107,8 @@ contract Z is O, F {
 // A herança deve ser ordenada de “mais semelhante a base” para “mais derivada”.
 // Trocar a ordem de A e F gerará um erro de compilação.
 // torque para L is F, A ==> error
-contract L is A, F{
+contract L is A, F {
     function foo() public pure override(A, F) returns (string memory) {
         return super.foo();
     }
 }
-
-

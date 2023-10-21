@@ -1,3 +1,7 @@
+# Repositorio dedicado ao curso da NearX - Introducao aos Smart Contracts e Solidity
+
+
+
 # Foundry Template [![Open in Gitpod][gitpod-badge]][gitpod] [![Github Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
 
 [gitpod]: https://gitpod.io/#https://github.com/PaulRBerg/foundry-template

@@ -2,7 +2,8 @@
 pragma solidity ^0.8.9;
 
 //NÃO PRECISO OBRIGATORIAMENTE IMPLEMENTAR AS FUNÇÕES NO CONTRATO FILHO
-abstract contract Dados { //nao conseguimos implementar esse contrato abstrato e nem modificar suas variaveis pelas funcoes de outro contrato
+abstract contract Dados { //nao conseguimos implementar esse contrato abstrato e nem modificar suas variaveis pelas
+        // funcoes de outro contrato
     //posso inserir variáveis
     string public name; //nome
     uint256 public age; //idade

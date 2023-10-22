@@ -12,7 +12,7 @@ contract ExerciVariaveis {
 
     function confereNumber(uint256 _idade) internal view {
         //inserimos o view pq nao modificaremos nada na blockchain e o internal e de função que somente pode ser lida
-            // no contrato
+        // no contrato
         require(_idade >= idade, "nao e permitido");
     }
 

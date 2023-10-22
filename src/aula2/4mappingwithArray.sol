@@ -24,14 +24,14 @@ contract mappingwithArray {
     function first() external view returns (uint256) {
         return balances[contas[0]]; //retornando o saldo do primeiro endereço armazenado na array
             //Aqui temos uma alternativa usada na prática onde queremos armazenar todas as contas e acessar pela sua
-                // alocação na array
+            // alocação na array
     }
 
     function last() external view returns (uint256) {
         return balances[contas[contas.length - 1]]; //forma de acessar o saldo da ultima conta.
             // sendo que a contagem começa com 1 e mas na lista da a array o primeiro endereço sera armazenado no
-                // indice 0
+            // indice 0
             //dessa forma temos que diminuir 1 do tamanho para pegar o endereço armazenado no indice 0 e retornar seu
-                // saldo
+            // saldo
     }
 }

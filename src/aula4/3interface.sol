@@ -1,11 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-//interface e uma forma de padronizar o uso de funcoes de um contrato. Assim, facilitando o acesso a elas por outros contratos.
+//interface e uma forma de padronizar o uso de funcoes de um contrato. Assim, facilitando o acesso a elas por outros
+// contratos.
 //interface e' usada em inumeros padroes e no exemplo abaixo vamos pegar dos contratos da Uniswap.
 //Dessa forma, conseguimos interagir com as determinadas funcoes do contrato ja deployado anteriormente
 
-contract Counter { //esse e o contrato que sempre que executamos a funcao increment ele imcrementa mais 1 na variavel count
+contract Counter { //esse e o contrato que sempre que executamos a funcao increment ele imcrementa mais 1 na
+        // variavel count
     uint256 public count;
 
     function increment() external {
@@ -13,13 +15,15 @@ contract Counter { //esse e o contrato que sempre que executamos a funcao increm
     }
 }
 
-interface ICounter { //interface 
-    function count() external view returns (uint256); //obrigatoriamente devemos declarar externas e nao precisamos abrir chaves {}
+interface ICounter { //interface
+    function count() external view returns (uint256); //obrigatoriamente devemos declarar externas e nao precisamos
+        // abrir chaves {}
 
     function increment() external;
 }
 
-contract MyContract { //como nesse contrato nao declaramos "is" nao somos obrigados a repetir as funcoes, mas podemos chamar elas 
+contract MyContract { //como nesse contrato nao declaramos "is" nao somos obrigados a repetir as funcoes, mas
+        // podemos chamar elas
     function incrementCounter(address _counter) external {
         ICounter(_counter).increment();
     }

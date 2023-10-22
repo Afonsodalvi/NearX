@@ -7,7 +7,6 @@
 //nome e simbolo do nosso Utility Token:
 //AfonsoCoin -- AFOC
 
-
 //nossa stalecoin Emitida por uma empresa conceituada no mercado Web3:
 //Emitido pela Lumx, nome e simbolo:
 // LumxUSD - LUSD

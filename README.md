@@ -1,6 +1,26 @@
 # Repositorio dedicado ao curso da NearX - Introducao aos Smart Contracts e Solidity
 
+#Para deployar os tokens siga os comandos abaixo:
 
+- Crie sua conta na Alchemy para gerar seu rpc [Alchemy](https://auth.alchemy.com/?redirectUrl=https%3A%2F%2Fdashboard.alchemy.com%2Fapps%3Fattempt%3D1)
+
+- Configure o se .env conforme o .env.example
+
+- Em foundry.toml configure os rpcs 
+
+### Deploy
+
+Deploy to Sepolia:
+
+```sh
+$ forge script script/Token.s.sol:Deploy --rpc-url sepolia \ --constructor-args "LumxUSD" "LUSD" --private-key <SuaChave> --broadcast --verify -vvvv
+```
+
+Exemplos dos contratos deployados:
+
+- [LumxUSD](https://sepolia.etherscan.io/address/0xb710bf323ef09d26afbe8b98a468575b9c75feb0#code)
+
+- [AfonsoCoin](https://sepolia.etherscan.io/address/0x9ad93eb84393c088e52edeece9ef95a0e408453d)
 
 # Foundry Template [![Open in Gitpod][gitpod-badge]][gitpod] [![Github Actions][gha-badge]][gha] [![Foundry][foundry-badge]][foundry] [![License: MIT][license-badge]][license]
 

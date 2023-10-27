@@ -24,8 +24,9 @@ contract Collection is
     bool publicSale;
     bool preSale;
 
-    //limite de compras por carteira e total supply
+    //limite de compras por carteira e total supply e whitelist
     mapping(address => uint256) mintWallet;
+     mapping(address => bool) public whitelist;
 
     uint256 limitPerWallet; //limite de transacao por wallet
     uint256 limitQuantity; //limite de quantidade de NFTs por wallet
@@ -49,6 +50,7 @@ contract Collection is
         limitQuantity = _limitQuantity;
         MINT_PRICE = _MINT_PRICE;
         baseURI = _baseURI;
+        whitelist[msg.sender] = true; //inserindo o endereco de deploy na whitelist
     }
 
     function mintPublic(uint256 quantity) external payable supplyMax(quantity) limitUser(quantity) {
@@ -60,12 +62,27 @@ contract Collection is
     }
 
     function mintPresale(uint256 quantity) external payable supplyMax(quantity) limitUser(quantity) {
+        whitelistFunc();
         require(preSale == true, "preSale close");
         require(msg.value == MINT_PRICE * quantity, "mint price not correct");
         mintWallet[msg.sender] += quantity;
         // `_mint`'s second argument now takes in a `quantity`, not a `tokenId`.
         _mint(msg.sender, quantity);
     }
+
+    function addToWhitelist(address toAddAddresses) external onlyOwner
+    {
+            whitelist[toAddAddresses] = true;
+    }
+
+    /**
+     * @notice Remove from whitelist
+     */
+    function removeFromWhitelist(address toRemoveAddresses) external onlyOwner
+    {
+         whitelist[toRemoveAddresses] = false;
+    }
+
 
     function publicSaleActive() external onlyOwner {
         publicSale = true;
@@ -85,6 +102,15 @@ contract Collection is
         require(balance > 0, "No ether left to withdraw");
         (bool success,) = (msg.sender).call{ value: balance }("");
         require(success, "Transfer failed.");
+    }
+
+    //podemos usar uma funcao fazendo o mesmo papel de um modifier, por exemplo:
+
+    function whitelistFunc()  view internal
+    {
+        require(whitelist[msg.sender], "NOT_IN_WHITELIST");
+
+        // Do some useful stuff
     }
 
     modifier supplyMax(uint256 _quantity) {

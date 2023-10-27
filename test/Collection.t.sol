@@ -42,6 +42,7 @@ contract CollectionTest is Test {
 
         vm.prank(user);
         vm.deal(user, 5 ether);
+        vm.expectRevert(); //esperamos que reverta nao ta na whitelist
         nft.mintPresale{ value: 1 ether }(1);
 
         vm.prank(user);
@@ -52,6 +53,15 @@ contract CollectionTest is Test {
     function testLimtMint() public {
         vm.prank(owner);
         nft.preSaleActive();
+
+        vm.prank(user);
+        vm.expectRevert(); //espermaos que reverta
+        nft.mintPresale(11); //erro MaxUser
+    }
+
+    function testwhiteList() public {
+        vm.prank(owner);
+        nft.addToWhitelist(user);
 
         vm.prank(user);
         vm.expectRevert(); //espermaos que reverta

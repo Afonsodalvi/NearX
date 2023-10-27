@@ -3,9 +3,12 @@ pragma solidity ^0.8.20;
 
 import "openzeppelin-contracts/contracts/token/ERC1155/IERC1155.sol";
 import "openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Receiver.sol";
+import "openzeppelin-contracts/contracts/token/ERC20/IERC20.sol";
 
 contract NftStaker {
     IERC1155 public parentNFT; //o contrato que iremos exportar a interface será chamado de parentNFT
+
+    IERC20 public token; //devemos mintar o tokens nos testes para esse contrato
 
     struct Stake {
         //estrutura que vai armazenar todas as informacoes de staking
@@ -20,8 +23,9 @@ contract NftStaker {
     //mapping staker to total staking time
     mapping(address => uint256) public stakingTime;
 
-    constructor(address contrato) {
+    constructor(address contrato, address reward) {
         parentNFT = IERC1155(contrato /*ENDEREÇO DO CONTRATO DEPLOYADO*/ );
+        token = IERC20(reward);
     }
 
     function stake(uint256 _tokenId, uint256 _amount) public {
@@ -46,6 +50,16 @@ contract NftStaker {
             // vamos saber quanto tempo ficou stekado
         //acima somassse o tempo de stake
         delete stakes[msg.sender];
+    }
+
+    function reward() external{
+        require(stakes[msg.sender].timestamp + 30 seconds <= block.timestamp, "no reward");
+        if(stakes[msg.sender].timestamp + 30 days >= block.timestamp) { //se o block.timestamp de staking mais 30 dias for maior ou igual ao atual
+            token.transfer(msg.sender, 10); //Assim, o usuario ta solicitando recompensa em menos tempo que 30 dias si so ganha 10
+        } if(stakes[msg.sender].timestamp + 30 days <= block.timestamp) {
+            token.transfer(msg.sender, 100); //agora se o tempo q ele colocou em stake mais 30 dias for menor que o tempo atual
+            //ele vai ganhar a recompensa de 100
+        } 
     }
 
     //Sempre que deixar em stake verifique no contrato de NFT principal a conta que deixou o NFT em stake nesse contrato

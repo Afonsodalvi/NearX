@@ -52,14 +52,18 @@ contract NftStaker {
         delete stakes[msg.sender];
     }
 
-    function reward() external{
+    function reward() external {
         require(stakes[msg.sender].timestamp + 30 seconds <= block.timestamp, "no reward");
-        if(stakes[msg.sender].timestamp + 30 days >= block.timestamp) { //se o block.timestamp de staking mais 30 dias for maior ou igual ao atual
-            token.transfer(msg.sender, 10); //Assim, o usuario ta solicitando recompensa em menos tempo que 30 dias si so ganha 10
-        } if(stakes[msg.sender].timestamp + 30 days <= block.timestamp) {
-            token.transfer(msg.sender, 100); //agora se o tempo q ele colocou em stake mais 30 dias for menor que o tempo atual
-            //ele vai ganhar a recompensa de 100
-        } 
+        if (stakes[msg.sender].timestamp + 30 days >= block.timestamp) {
+            //se o block.timestamp de staking mais 30 dias for maior ou igual ao atual
+            token.transfer(msg.sender, 10); //Assim, o usuario ta solicitando recompensa em menos tempo que 30 dias si
+                // so ganha 10
+        }
+        if (stakes[msg.sender].timestamp + 30 days <= block.timestamp) {
+            token.transfer(msg.sender, 100); //agora se o tempo q ele colocou em stake mais 30 dias for menor que o
+                // tempo atual
+                //ele vai ganhar a recompensa de 100
+        }
     }
 
     //Sempre que deixar em stake verifique no contrato de NFT principal a conta que deixou o NFT em stake nesse contrato

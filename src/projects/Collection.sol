@@ -26,7 +26,7 @@ contract Collection is
 
     //limite de compras por carteira e total supply e whitelist
     mapping(address => uint256) mintWallet;
-     mapping(address => bool) public whitelist;
+    mapping(address => bool) public whitelist;
 
     uint256 limitPerWallet; //limite de transacao por wallet
     uint256 limitQuantity; //limite de quantidade de NFTs por wallet
@@ -70,19 +70,16 @@ contract Collection is
         _mint(msg.sender, quantity);
     }
 
-    function addToWhitelist(address toAddAddresses) external onlyOwner
-    {
-            whitelist[toAddAddresses] = true;
+    function addToWhitelist(address toAddAddresses) external onlyOwner {
+        whitelist[toAddAddresses] = true;
     }
 
     /**
      * @notice Remove from whitelist
      */
-    function removeFromWhitelist(address toRemoveAddresses) external onlyOwner
-    {
-         whitelist[toRemoveAddresses] = false;
+    function removeFromWhitelist(address toRemoveAddresses) external onlyOwner {
+        whitelist[toRemoveAddresses] = false;
     }
-
 
     function publicSaleActive() external onlyOwner {
         publicSale = true;
@@ -106,8 +103,7 @@ contract Collection is
 
     //podemos usar uma funcao fazendo o mesmo papel de um modifier, por exemplo:
 
-    function whitelistFunc()  view internal
-    {
+    function whitelistFunc() internal view {
         require(whitelist[msg.sender], "NOT_IN_WHITELIST");
 
         // Do some useful stuff

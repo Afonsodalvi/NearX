@@ -23,7 +23,6 @@ contract AFOC is ERC20, ERC20Burnable, Ownable {
     uint256 private MAXSUP;
     uint256 constant MAXIMUMSUPPLY = 1_000_000 * 10 ** 18; //Esse e o limite de emissao
 
-    
     constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) {
         _mint(msg.sender, 1_000_000 * 10 ** 18); //o ERC20 tem 18 casas decimais
     }

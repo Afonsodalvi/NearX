@@ -28,11 +28,11 @@ contract StakingTest is Test {
         token = new MockERC20();
         nft = new MockERC1155(); //comece pela collection
         nftstaking = new NftStaker(address(nft), address(token));
-        token.mint(address(nftstaking), 100000000000000000);
+        token.mint(address(nftstaking), 100_000_000_000_000_000);
         vm.stopPrank();
     }
 
-    function testBalance() public{
+    function testBalance() public {
         //Receiver receiver = new Receiver();
         vm.prank(owner);
         token.balanceOf(address(nftstaking)); //vai ter 100000000000000000 pq colocamos zero casas decimais
@@ -67,12 +67,12 @@ contract StakingTest is Test {
         emit log_uint(balanceUpdate2);
     }
 
-    function testReward() public{
+    function testReward() public {
         vm.prank(owner);
-        token.mint(address(nftstaking), 100000000000000000);
-        
+        token.mint(address(nftstaking), 100_000_000_000_000_000);
+
         vm.prank(user);
-        nft.mint(user, 1,100);
+        nft.mint(user, 1, 100);
 
         vm.prank(user); //o usu[ario tem que aprovar o contrato de staking pegar os ativos dele]
         nft.setApprovalForAll(address(nftstaking), true);
@@ -82,11 +82,11 @@ contract StakingTest is Test {
         vm.prank(user);
         nftstaking.stake(1, 10);
 
-        vm.warp(block.timestamp + 35 days);//desse jeito aqui o usuario vai ganhar 
+        vm.warp(block.timestamp + 35 days); //desse jeito aqui o usuario vai ganhar
         vm.prank(user);
         nftstaking.reward();
 
         vm.prank(user);
-        token.balanceOf(user);//tem que ser 10
+        token.balanceOf(user); //tem que ser 10
     }
 }

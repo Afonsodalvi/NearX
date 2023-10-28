@@ -1,0 +1,26 @@
+{
+    "description": "NearX Collection - Professor Afonso", 
+    "external_link": "https://nearx.com.br/", 
+    "image": "https://ipfs.io/ipfs/bafybeid4bpr6egtuoigbtv2kqp6t4zrztmqdmouohtccbo6dff5pelmtei/NFT.mp4", 
+    "name": "NearX Collection",
+    "attributes": [{
+        "trait_type": "Curso",
+        "value": "Smart Contracts"
+      }, 
+      {
+        "display_type": "boost_number", 
+        "trait_type": "rarity", 
+        "value": 10
+      }, 
+      {
+        "display_type": "boost_percentage", 
+        "trait_type": "Premium-Gold", 
+        "value": 100
+      }, 
+      {
+        "display_type": "number", 
+        "trait_type": "Generation", 
+        "value": 1
+      }
+    ]
+  }

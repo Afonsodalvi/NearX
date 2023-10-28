@@ -34,7 +34,8 @@ contract Collection is
     uint256 public TOTALSUPPLY;
     uint256 immutable MINT_PRICE;
 
-    string baseURI;
+    string public baseURI;
+    string public collectionCover;
 
     constructor(
         uint256 _TOTALSUPPLY,
@@ -69,6 +70,11 @@ contract Collection is
         // `_mint`'s second argument now takes in a `quantity`, not a `tokenId`.
         _mint(msg.sender, quantity);
     }
+
+    function setCollectionURI(string memory _collectionCover) external onlyOwner{ ///set ipfs/CID/collection.json
+        collectionCover = _collectionCover;
+    }
+
 
     function addToWhitelist(address toAddAddresses) external onlyOwner {
         whitelist[toAddAddresses] = true;

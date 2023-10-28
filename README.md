@@ -1,4 +1,14 @@
-# Repositorio dedicado ao curso da NearX - Introducao aos Smart Contracts e Solidity
+# Repositorio dedicado ao curso da NearX - Introducao aos Smart Contracts e Solidity - !!Todos os smart contracts são para fins educacionais!!
+
+
+#Fluxos das aulas e projetos:
+
+![Loja - SupplyChain](NearX.png)
+
+![Staking](<NearX (2).png>)
+
+![Collection](<NearX (1).png>)
+
 
 #Para deployar os tokens siga os comandos abaixo:
 

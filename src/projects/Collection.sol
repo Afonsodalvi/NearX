@@ -35,7 +35,7 @@ contract Collection is
     uint256 immutable MINT_PRICE;
 
     string public baseURI;
-    string public collectionCover;
+    string public collectionCover = "https://ipfs.io/ipfs/bafkreiespnaevk72m7j2xugzyjvzbhaosttlb2dwmfawkb6pfyrjnmlafm/";
 
     constructor(
         uint256 _TOTALSUPPLY,
@@ -71,8 +71,13 @@ contract Collection is
         _mint(msg.sender, quantity);
     }
 
-    function setCollectionURI(string memory _collectionCover) external onlyOwner{ ///set ipfs/CID/collection.json
-        collectionCover = _collectionCover;
+    function contractURI() //collection cover -- desse jeito o Opensea Reconhece a capa da coleção
+        external
+        view
+        returns (string memory)
+    {
+        return string(abi.encodePacked(collectionCover)); 
+        //set in the folder of the files the file named as collection
     }
 
 

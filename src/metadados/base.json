@@ -1,7 +1,7 @@
 {
     "description": "NearX Collection - Professor Afonso", 
     "external_link": "https://nearx.com.br/", 
-    "image": "https://ipfs.io/ipfs/bafybeid4bpr6egtuoigbtv2kqp6t4zrztmqdmouohtccbo6dff5pelmtei/NFT.mp4", 
+    "image": "https://ipfs.io/ipfs/<CID>/NFT.mp4", 
     "name": "NearX Collection",
     "attributes": [{
         "trait_type": "Curso",

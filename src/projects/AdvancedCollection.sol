@@ -23,9 +23,7 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
     uint256 public currentTokenId;
     uint256 public TOTAL_SUPPLY;
 
-    //omnes protocol
-    uint256 public price;
-    uint256 public maxDiscount;
+    
 
     //acess rules 
     uint256 public monthlyFee;
@@ -36,6 +34,7 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
         uint256 valuepay;
     }
 
+    mapping(address => bool) public whitelist;
     mapping(uint256 => Infopayment) public monthlyPayment;
     mapping(address => uint256) limitRentcont;
     mapping(address => bool) lifetimeAcess;
@@ -51,14 +50,15 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
         string memory _collectionCover,
         uint256 totalsupply
     ) ERC4907Rent(_name, _symbol) {
-        generalURI = _generalURI;
+        generalURI = _generalURI;//mesma coisa que o base so mudamos o nome
         collectionCover = _collectionCover;// set ipfs/CID/collection.json
         TOTAL_SUPPLY = totalsupply;
     }
 
-    function mint() external payable whenNotPaused returns (uint256){
+    function mintWhitelist() external payable whenNotPaused returns (uint256){
+        whitelistFunc(); //checa se o endereco ta na whitelist
         // `_mint`'s second argument now takes in a `quantity`, not a `tokenId`
-        if (msg.value < price - ((price * maxDiscount) / 10000)) {
+        if (msg.value < price) {
             revert MintPriceNotPaid();
         }
         uint256 newTokenId = _nextTokenId() + 1;
@@ -67,8 +67,10 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
         return newTokenId;
     }
 
+
+
     function mintTo(address recipient) public payable whenNotPaused returns (uint256) {
-        if (msg.value < price - ((price * maxDiscount) / 10000)) {
+        if (msg.value < price) {
             revert MintPriceNotPaid();
         }
         uint256 newTokenId = _nextTokenId() + 1;
@@ -180,6 +182,36 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
     {
         return string(abi.encodePacked(collectionCover)); 
         //set in the folder of the files the file named as collection
+    }
+
+    /**
+     * @notice Add to whitelist
+     */
+    function addToWhitelist(address[] calldata toAddAddresses) external onlyOwner
+    { //for loop -- adiciona os enderecos na lista
+        for (uint i = 0; i < toAddAddresses.length; i++) {
+            whitelist[toAddAddresses[i]] = true;
+        }
+    }
+
+    /**
+     * @notice Remove from whitelist
+     */
+    function removeFromWhitelist(address[] calldata toRemoveAddresses) external onlyOwner
+    {
+        for (uint i = 0; i < toRemoveAddresses.length; i++) {
+            delete whitelist[toRemoveAddresses[i]]; //deleta o endereco da lista
+        }
+    }
+
+    /**
+     * @notice Function with whitelist
+     */
+    function whitelistFunc() external
+    {
+        require(whitelist[msg.sender], "NOT_IN_WHITELIST");
+
+        // Do some useful stuff
     }
 
 

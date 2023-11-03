@@ -22,6 +22,7 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
     string public collectionCover;
     uint256 public currentTokenId;
     uint256 public TOTAL_SUPPLY;
+    uint256 public price;
 
     
 
@@ -29,6 +30,7 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
     uint256 public monthlyFee;
     uint256 public timeForpay;
     uint256 constant limitRent = 3;
+
     struct Infopayment{
         uint256 timepay;
         uint256 valuepay;
@@ -143,9 +145,6 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
         lifetimeAcess[_user] = _lifetime;
     }
 
-    function setMaxdiscont(uint256 _maxDiscont) external onlyOwner {
-        maxDiscount = _maxDiscont;
-    }
 
     function setTimeforpay(uint256 _timeforpay) external onlyOwner {
         timeForpay = _timeforpay;
@@ -207,7 +206,7 @@ contract BRfraternity is ERC4907Rent, Pausable, Ownable {
     /**
      * @notice Function with whitelist
      */
-    function whitelistFunc() external
+    function whitelistFunc() internal
     {
         require(whitelist[msg.sender], "NOT_IN_WHITELIST");
 

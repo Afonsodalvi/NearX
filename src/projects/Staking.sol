@@ -23,9 +23,9 @@ contract NftStaker {
     //mapping staker to total staking time
     mapping(address => uint256) public stakingTime;
 
-    constructor(address contrato, address reward) {
+    constructor(address contrato, address rewardToken) {
         parentNFT = IERC1155(contrato /*ENDEREÇO DO CONTRATO DEPLOYADO*/ );
-        token = IERC20(reward);
+        token = IERC20(rewardToken);
     }
 
     function stake(uint256 _tokenId, uint256 _amount) public {

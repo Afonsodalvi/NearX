@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
 interface IERC4907 {
 
     // Logged when the user of an NFT is changed or expires is changed

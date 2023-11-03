@@ -1,17 +1,13 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-contract ExercicioLoja {
-    
-    enum Status //inserindo o status do usuario
-    {
-        PENDING, //0
-        LOGGED, //1
-        PURCHASE, //2
-        RECEIVE //3
-    }
+import "../projects/ERC20.sol"; //importando o contrato de token
 
-    Status public status; //status da compra
+contract ExercicioLoja2 is ERC20{
+    
+    ///contrato com programa de cashback com tokens
+
+
     uint256 idadeDezoito = 18; //idade minima
     mapping(address => bool) public approved; //registra a aprovacao no login
     mapping(address => uint256) balance; //saldo do cliente no contrato
@@ -44,20 +40,20 @@ contract ExercicioLoja {
 
     watch public Watch;
 
-    constructor(uint _stockIphone, uint _stockWacth, uint _stockMac){ //definimos as quantidades maximas no estoque
+    constructor(uint _stockIphone, uint _stockWacth, uint _stockMac) { //definimos as quantidades maximas no estoque
         Iphone.stock = _stockIphone;
         Mac.stock = _stockMac;
         Watch.stock = _stockWacth;
+        mintTo(address(this), 100000000);
     }
 
-    function get() external view returns (Status) {
+    function get() external view returns (uint) {
         //retorna em qual status esta
-        return status;
+        return balanceOf[msg.sender];
     }
 
     function login(uint256 _idade) external returns (bool notLegaAge) {
         if (_idade < idadeDezoito) {
-            status = Status.LOGGED;
             revert("Your not legal Age in Brazil");
         } else {
             approved[msg.sender] = true; //salva como aprovado
@@ -82,42 +78,58 @@ contract ExercicioLoja {
 
         if (compareStrings(opcaoNum, Product[0])) {
             require(msg.value == 1 ether, "incorrect iphone value");
-
+            require(Iphone.iphoneSolds+1 <= Iphone.stock, "acabou");
             for (uint256 i = 0; i < 1; i++) {//pega a quantidade
             Iphone.iphoneSolds++; //incrementa e sendo o ID novo
         }
-
+            balanceOf[msg.sender] = 10;//saldo do token
             balance[msg.sender] += msg.value;
-            status = Status.PURCHASE;
+            
         }
         if (compareStrings(opcaoNum, Product[1])) {
             require(msg.value == 2 ether, "incorrect MacBook value");
-
+            require(Mac.macSolds+1 <= Mac.stock, "acabou");
             for (uint256 i = 0; i < 1; i++) {//pega a quantidade
             Mac.macSolds++; //incrementa e sendo o ID novo
             }
-
+            balanceOf[msg.sender] = 20;
             balance[msg.sender] += msg.value;
-            status = Status.PURCHASE;
+            
+
         }
         if (compareStrings(opcaoNum, Product[2])) {
             require(msg.value == 5_000_000_000_000_000_000 wei, "incorrect AppleWatch value"); //https://eth-converter.com/
             //equivalente a 0.5 ether
+            require(Watch.watchSolds+1 <= Watch.stock, "acabou");
             for (uint256 i = 0; i < 1; i++) {//pega a quantidade
             Watch.watchSolds++; //incrementa e sendo o ID novo
             }
-
+            balanceOf[msg.sender] = 5;
             balance[msg.sender] += msg.value;
-            status = Status.PURCHASE;
+           
         }
+    }
+
+//approve(address spender, uint256 amount) -- sempre devemos dar o approve
+    function rewardsCash(uint _amount) payable external returns(string memory){
+        require(balanceOf[msg.sender] >= _amount, "dont have utility token");
+        if(_amount >= 10){
+            IERC20(address(this)).transferFrom(msg.sender, appleStore, _amount);
+            balanceOf[msg.sender]-=_amount; //ele diminui a quantidade
+            return "seu premio foi um spa";
+        } if (_amount < 10) {
+            IERC20(address(this)).transferFrom(msg.sender, appleStore, _amount);
+            balanceOf[msg.sender]-=_amount;
+            return "seu premio foi um chaveiro";
+         } return "";
+        
     }
 
     function receiveOrnot(bool _receive) external {
         if (!approved[msg.sender]) revert("not approved");
         if (_receive == true) {
             payable(appleStore).transfer(address(this).balance);
-            status = Status.RECEIVE;
-        } else {
+        } if (_receive == false) {
             payable(msg.sender).transfer(balance[msg.sender]);
         }
     }
@@ -130,4 +142,5 @@ contract ExercicioLoja {
         _;
     }
 }
+
 

@@ -1,3 +1,9 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+
+contract liguidityExpli{
+
+}
 //Tokenomics da nossa Liquidity Pool
 
 //Vamos usar a UniswapV3

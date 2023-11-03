@@ -25,7 +25,7 @@ contract ExerciVariaveis {
     }
 
     function gerarSenha() external returns (uint256) {
-        uint256 randomness = uint256(keccak256(abi.encodePacked(msg.sender, block.difficulty, block.timestamp)));
+        uint256 randomness = uint256(keccak256(abi.encodePacked(msg.sender, /*block.difficulty*/ block.prevrandao, block.timestamp)));
         senha = randomness; ////                     endereco   -  dificuldade para minera o bloco   - tempo atual
         return randomness;
 

@@ -9,9 +9,9 @@ contract ERC20 is IERC20 {
     mapping(address => mapping(address => uint256)) public allowance;
     string public name = "My Token";
     string public symbol = "MYTOKEN";
-    uint8 public decimals = 18;
+    uint8 public decimals = 0; //Geralmente são 18 casas decimais
 
-    function transfer(address recipient, uint256 amount) external returns (bool) {
+    function transfer(address recipient, uint256 amount) public returns (bool) {
         balanceOf[msg.sender] -= amount;
         balanceOf[recipient] += amount;
         emit Transfer(msg.sender, recipient, amount);
@@ -24,7 +24,7 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    function transferFrom(address sender, address recipient, uint256 amount) external returns (bool) {
+    function transferFrom(address sender, address recipient, uint256 amount) public returns (bool) {
         allowance[sender][msg.sender] -= amount;
         balanceOf[sender] -= amount;
         balanceOf[recipient] += amount;
@@ -36,6 +36,12 @@ contract ERC20 is IERC20 {
         balanceOf[msg.sender] += amount;
         totalSupply += amount;
         emit Transfer(address(0), msg.sender, amount);
+    }
+
+    function mintTo(address to, uint256 amount) internal {
+        balanceOf[to] += amount;
+        totalSupply += amount;
+        emit Transfer(address(0), to, amount);
     }
 
     function burn(uint256 amount) external {

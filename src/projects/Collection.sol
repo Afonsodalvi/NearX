@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.4;
 
-import "erc721a/ERC721A.sol";
+import "erc721a/contracts/ERC721A.sol";
 import "openzeppelin-contracts/contracts/access/Ownable.sol";
 import "openzeppelin-contracts/contracts/security/Pausable.sol";
 import "openzeppelin-contracts/contracts/utils/Strings.sol";

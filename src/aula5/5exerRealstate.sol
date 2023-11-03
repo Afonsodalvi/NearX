@@ -8,6 +8,8 @@ import "../aula4/1LibraryMath.sol";
 contract RealStateCorporate is
     interfaceReal //se eu implemento o contrato que tem constructor eu tenho que implementar ele
 {
+
+    ///lembre-se que a comissão vai ser em percentual
     using Math for uint256; //vamos usar a library para fazer alguns calculos da regra do negócio
 
     oracleRealstate[] public oraclesRealstates; //criamos oraculos de imobiliarias

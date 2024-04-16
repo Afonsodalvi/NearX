@@ -229,6 +229,12 @@ $ pnpm test:coverage:report
 - [foundry-rs/forge-template](https://github.com/foundry-rs/forge-template)
 - [FrankieIsLost/forge-template](https://github.com/FrankieIsLost/forge-template)
 
+# Documentação Adicional
+Para mais detalhes sobre os exemplos com UInt e Int de contratos inteligentes, consulte a [documentação dos exemplos de UInt e Int](docs/ExemplosUIntInt.md). 
+
+Para mais detalhes sobre os exemplos com Operadores Lógicos de contratos inteligentes, consulte a [documentação dos exemplos de Operadores Lógicos](docs/ExemploOperadores.md). 
+
+
 ## License
 
 This project is licensed under MIT.
